@@ -369,6 +369,17 @@ public class RangerSystemAccessControl
   }
 
   @Override
+  public void checkCanSetColumnComment(SystemSecurityContext context, CatalogSchemaTableName table)
+  {
+    try {
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanSetColumnComment(context, table);
+    } finally {
+      deactivatePluginClassLoader();
+    }
+  }
+
+  @Override
   public void checkCanShowTables(SystemSecurityContext context, CatalogSchemaName schema) {
     try {
       activatePluginClassLoader();

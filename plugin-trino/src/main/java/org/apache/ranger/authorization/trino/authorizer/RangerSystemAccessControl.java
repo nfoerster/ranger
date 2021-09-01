@@ -466,6 +466,15 @@ public class RangerSystemAccessControl
     }
   }
 
+  @Override
+  public void checkCanSetColumnComment(SystemSecurityContext context, CatalogSchemaTableName table)
+  {
+    if (!hasPermission(createResource(table), context, TrinoAccessType.ALTER)) {
+      LOG.debug("RangerSystemAccessControl.checkCanSetColumnComment(" + table.toString() + ") denied");
+      AccessDeniedException.denyCommentColumn(table.toString());
+    }
+  }
+
   /**
    * Create view is verified on schema level
    */
