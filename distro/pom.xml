@@ -74,7 +74,7 @@
                                         <descriptor>src/main/assembly/plugin-kylin.xml</descriptor>
                                         <descriptor>src/main/assembly/plugin-elasticsearch.xml</descriptor>
                                         <descriptor>src/main/assembly/plugin-schema-registry.xml</descriptor>
-                                        <descriptor>src/main/assembly/plugin-presto.xml</descriptor>
+                                        <descriptor>src/main/assembly/plugin-trino.xml</descriptor>
                                         <descriptor>src/main/assembly/sample-client.xml</descriptor>
                                     </descriptors>
                                 </configuration>
@@ -526,7 +526,7 @@
             </build>
         </profile>
         <profile>
-            <id>ranger-presto-plugin</id>
+            <id>ranger-trino-plugin</id>
             <build>
                 <plugins>
                     <plugin>
@@ -545,7 +545,7 @@
                                 <configuration>
                                     <skipAssembly>false</skipAssembly>
                                     <descriptors>
-                                        <descriptor>src/main/assembly/plugin-presto.xml</descriptor>
+                                        <descriptor>src/main/assembly/plugin-trino.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
@@ -630,7 +630,7 @@
                                         <descriptor>src/main/assembly/plugin-kylin.xml</descriptor>
                                         <descriptor>src/main/assembly/plugin-elasticsearch.xml</descriptor>
                                         <descriptor>src/main/assembly/plugin-schema-registry.xml</descriptor>
-                                        <descriptor>src/main/assembly/plugin-presto.xml</descriptor>
+                                        <descriptor>src/main/assembly/plugin-trino.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
