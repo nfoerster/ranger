@@ -174,7 +174,7 @@
         <orc.core.version>1.6.7</orc.core.version>
         <owasp-java-html-sanitizer.version>r239</owasp-java-html-sanitizer.version>
         <paranamer.version>2.3</paranamer.version>
-        <trino.version>361</trino.version>
+        <trino.version>365</trino.version>
         <poi.version>4.1.2</poi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <protobuf-java.version>2.5.0</protobuf-java.version>

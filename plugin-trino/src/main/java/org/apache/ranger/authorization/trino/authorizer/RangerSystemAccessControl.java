@@ -295,13 +295,19 @@ public class RangerSystemAccessControl
   }
 
   @Override
-  public void checkCanShowRoles(SystemSecurityContext context, String catalogName) {
-    if (!hasPermission(createResource(catalogName), context, TrinoAccessType.SHOW)) {
-      LOG.debug("RangerSystemAccessControl.checkCanShowRoles(" + catalogName + ") denied");
-      AccessDeniedException.denyShowRoles(catalogName);
-    }
+  public void checkCanShowRoles(SystemSecurityContext context) {
+    //allow
   }
 
+  @Override
+  public void checkCanShowCurrentRoles(SystemSecurityContext context) {
+    //allow
+  }
+
+  @Override
+  public void checkCanShowRoleGrants(SystemSecurityContext context) {
+    //allow
+  }
 
   @Override
   public void checkCanAccessCatalog(SystemSecurityContext context, String catalogName) {
@@ -395,7 +401,8 @@ public class RangerSystemAccessControl
    * Create table is verified on schema level
    */
   @Override
-  public void checkCanCreateTable(SystemSecurityContext context, CatalogSchemaTableName table) {
+  public void checkCanCreateTable(SystemSecurityContext context, CatalogSchemaTableName table, Map<String, Object> properties)
+  {
     if (!hasPermission(createResource(table.getCatalogName(), table.getSchemaTableName().getSchemaName()), context, TrinoAccessType.CREATE)) {
       LOG.debug("RangerSystemAccessControl.checkCanCreateTable(" + table.getSchemaTableName().getTableName() + ") denied");
       AccessDeniedException.denyCreateTable(table.getSchemaTableName().getTableName());
@@ -507,6 +514,27 @@ public class RangerSystemAccessControl
     } catch (AccessDeniedException ade) {
       LOG.debug("RangerSystemAccessControl.checkCanCreateViewWithSelectFromColumns(" + table.getSchemaTableName().getTableName() + ") denied");
       AccessDeniedException.denyCreateViewWithSelect(table.getSchemaTableName().getTableName(), context.getIdentity());
+    }
+  }
+
+  /**
+   *
+   * check if materialized view can be created
+   */
+  @Override
+  public void checkCanCreateMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+    if (!hasPermission(createResource(materializedView), context, TrinoAccessType.CREATE)) {
+      LOG.debug("RangerSystemAccessControl.checkCanCreateMaterializedView( " + materializedView.getSchemaTableName().getTableName() + ") denied");
+      AccessDeniedException.denyCreateMaterializedView(materializedView.getSchemaTableName().getTableName());
+    }
+
+  }
+
+  @Override
+  public void checkCanDropMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+    if(!hasPermission(createResource(materializedView),context,TrinoAccessType.DROP)){
+      LOG.debug("RangerSystemAccessControl.checkCanDropMaterializedView(" + materializedView.getSchemaTableName().getTableName() + ") denied");
+      AccessDeniedException.denyCreateView(materializedView.getSchemaTableName().getTableName());
     }
   }
 

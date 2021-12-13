@@ -155,10 +155,10 @@ public class RangerSystemAccessControl
   }
 
   @Override
-  public void checkCanCreateTable(SystemSecurityContext context, CatalogSchemaTableName table) {
+  public void checkCanCreateTable(SystemSecurityContext context, CatalogSchemaTableName table, Map<String, Object> properties) {
     try {
       activatePluginClassLoader();
-      systemAccessControlImpl.checkCanCreateTable(context, table);
+      systemAccessControlImpl.checkCanCreateTable(context, table, properties);
     } finally {
       deactivatePluginClassLoader();
     }
@@ -262,6 +262,29 @@ public class RangerSystemAccessControl
       activatePluginClassLoader();
       systemAccessControlImpl.checkCanCreateView(context, view);
     } finally {
+      deactivatePluginClassLoader();
+    }
+  }
+
+  @Override
+  public void checkCanCreateMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+    try{
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanCreateMaterializedView(context,materializedView);
+    }
+    finally {
+      deactivatePluginClassLoader();
+    }
+
+  }
+
+  @Override
+  public void checkCanDropMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+    try{
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanDropMaterializedView(context,materializedView);
+    }
+    finally {
       deactivatePluginClassLoader();
     }
   }
@@ -442,10 +465,30 @@ public class RangerSystemAccessControl
   }
 
   @Override
-  public void checkCanShowRoles(SystemSecurityContext context, String catalogName) {
+  public void checkCanShowRoles(SystemSecurityContext context) {
     try {
       activatePluginClassLoader();
-      systemAccessControlImpl.checkCanShowRoles(context, catalogName);
+      systemAccessControlImpl.checkCanShowRoles(context);
+    } finally {
+      deactivatePluginClassLoader();
+    }
+  }
+
+  @Override
+  public void checkCanShowCurrentRoles(SystemSecurityContext context) {
+    try {
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanShowCurrentRoles(context);
+    } finally {
+      deactivatePluginClassLoader();
+    }
+  }
+
+  @Override
+  public void checkCanShowRoleGrants(SystemSecurityContext context) {
+    try {
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanShowRoleGrants(context);
     } finally {
       deactivatePluginClassLoader();
     }
