@@ -275,7 +275,6 @@ public class RangerSystemAccessControl
     finally {
       deactivatePluginClassLoader();
     }
-
   }
 
   @Override
@@ -285,6 +284,39 @@ public class RangerSystemAccessControl
       systemAccessControlImpl.checkCanDropMaterializedView(context,materializedView);
     }
     finally {
+      deactivatePluginClassLoader();
+    }
+  }
+
+  @Override
+  public void checkCanDropMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+    try{
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanDropMaterializedView(context,materializedView);
+    }
+    finally {
+      deactivatePluginClassLoader();
+    }
+  }
+
+  @Override
+  public void checkCanRefreshMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView)
+  {
+    try {
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanRefreshMaterializedView(context, materializedView);
+    } finally {
+      deactivatePluginClassLoader();
+    }
+  }
+
+  @Override
+  public void checkCanRenameMaterializedView(SystemSecurityContext context, CatalogSchemaTableName view, CatalogSchemaTableName newView)
+  {
+    try {
+      activatePluginClassLoader();
+      systemAccessControlImpl.checkCanRenameMaterializedView(context, view, newView);
+    } finally {
       deactivatePluginClassLoader();
     }
   }
