@@ -538,6 +538,23 @@ public class RangerSystemAccessControl
     }
   }
 
+  @Override
+  public void checkCanRefreshMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+    if(!hasPermission(createResource(materializedView),context,TrinoAccessType.INSERT)){
+      LOG.debug("RangerSystemAccessControl.checkCanRefreshMaterializedView(" + materializedView.getSchemaTableName().getTableName() + ") denied");
+      AccessDeniedException.denyRefreshMaterializedView(materializedView.getSchemaTableName().getTableName());
+    }
+  }
+
+  @Override
+  public void checkCanRenameMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView, CatalogSchemaTableName newMaterializedView)) {
+    if(!hasPermission(createResource(materializedView),context,TrinoAccessType.ALTER)){
+      LOG.debug("RangerSystemAccessControl.checkCanRenameMaterializedView(" + materializedView.getSchemaTableName().getTableName() + ") denied");
+      AccessDeniedException.denyRenameMaterializedView(materializedView.getSchemaTableName().getTableName(), newMaterializedView.toString());
+    }
+  }
+
+
   /**
    * This is evaluated against the table name as ownership information is not available
    */
