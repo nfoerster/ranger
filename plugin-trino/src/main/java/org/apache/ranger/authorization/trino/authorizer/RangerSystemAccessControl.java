@@ -547,7 +547,7 @@ public class RangerSystemAccessControl
   }
 
   @Override
-  public void checkCanRenameMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView, CatalogSchemaTableName newMaterializedView)) {
+  public void checkCanRenameMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView, CatalogSchemaTableName newMaterializedView) {
     if(!hasPermission(createResource(materializedView),context,TrinoAccessType.ALTER)){
       LOG.debug("RangerSystemAccessControl.checkCanRenameMaterializedView(" + materializedView.getSchemaTableName().getTableName() + ") denied");
       AccessDeniedException.denyRenameMaterializedView(materializedView.getSchemaTableName().getTableName(), newMaterializedView.toString());
