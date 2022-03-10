@@ -522,7 +522,7 @@ public class RangerSystemAccessControl
    * check if materialized view can be created
    */
   @Override
-  public void checkCanCreateMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+  public void checkCanCreateMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView, Map<String, Object> properties) {
     if (!hasPermission(createResource(materializedView), context, TrinoAccessType.CREATE)) {
       LOG.debug("RangerSystemAccessControl.checkCanCreateMaterializedView( " + materializedView.getSchemaTableName().getTableName() + ") denied");
       AccessDeniedException.denyCreateMaterializedView(materializedView.getSchemaTableName().getTableName());

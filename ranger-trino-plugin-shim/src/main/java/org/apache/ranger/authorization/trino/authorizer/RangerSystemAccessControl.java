@@ -267,10 +267,10 @@ public class RangerSystemAccessControl
   }
 
   @Override
-  public void checkCanCreateMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView) {
+  public void checkCanCreateMaterializedView(SystemSecurityContext context, CatalogSchemaTableName materializedView, Map<String, Object> properties) {
     try{
       activatePluginClassLoader();
-      systemAccessControlImpl.checkCanCreateMaterializedView(context,materializedView);
+      systemAccessControlImpl.checkCanCreateMaterializedView(context,materializedView, properties);
     }
     finally {
       deactivatePluginClassLoader();

@@ -1,0 +1,4 @@
+-Dhttp.proxyHost=10.0.2.15
+-Dhttp.proxyPort=3128
+-Dhttps.proxyHost=10.0.2.15
+-Dhttps.proxyPort=3128
